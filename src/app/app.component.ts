@@ -1,3 +1,7 @@
+import { Component } from '@angular/core';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+
+// Enumeration type optimization
 export enum Category {
   Electronics = 'Electronics',
   Furniture = 'Furniture',
@@ -12,6 +16,7 @@ export enum StockStatus {
   OutOfStock = 'Out of Stock'
 }
 
+// Add comments to interfaces and strictly define types
 export interface Inventory {
   item_id: number;
   item_name: string;
@@ -24,13 +29,10 @@ export interface Inventory {
   special_note?: string;
 }
 
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-
-import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
