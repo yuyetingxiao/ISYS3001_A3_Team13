@@ -1,17 +1,72 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Inventory List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()" color="light">
+        <ion-icon name="help-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!--Correspondence between the value and logic of filter buttons -->
+  <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterByStatus()">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="in-stock">
+      <ion-label>In Stock</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="low-stock">
+      <ion-label>Low Stock</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="out-of-stock">
+      <ion-label>Out of Stock</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-searchbar
+    placeholder="Search items..."
+    (ionInput)="onSearch($event)"
+    debounce="250"
+    class="custom-searchbar"
+  ></ion-searchbar>
+
+  <ion-list lines="full" class="custom-list">
+    <ion-item
+      *ngFor="let item of filteredItems"
+      class="custom-item"
+      button
+      detail
+    >
+      <!-- Popular tags -->
+      <div class="popular-badge" *ngIf="item.featured_item === 1">
+        <ion-icon name="flame" color="danger" size="small"></ion-icon>
+        <span>Popular</span>
+      </div>
+
+      <ion-icon
+        [name]="getStatusIcon(item.stock_status)"
+        slot="start"
+        [color]="getStatusColor(item.stock_status)"
+        size="large"
+      ></ion-icon>
+
+      <ion-label>
+        <h2 class="item-name">{{ item.item_name }}</h2>
+        <p class="item-status" [ngClass]="getStockClass(item.stock_status)">
+          {{ item.stock_status }}
+        </p>
+        <p class="item-quantity">Stock: {{ item.quantity }}</p>
+        <p class="item-price">Price: {{ formatPrice(item.price) }}</p>
+        <p class="item-category">Category: {{ item.category }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text *ngIf="filteredItems.length === 0" class="empty-state ion-text-center">
+    <ion-icon name="search-outline" size="large" color="medium"></ion-icon>
+    <p>No items found.</p>
+  </ion-text>
 </ion-content>
