@@ -5,9 +5,11 @@ import {
   IonHeader, IonToolbar, IonTitle, IonContent,
   IonButtons, IonButton, IonSearchbar,
   IonList, IonItem, IonLabel, IonIcon,
-  IonText, IonSegment, IonSegmentButton
+  IonText, IonSegment, IonSegmentButton,
+  IonInput, IonSelect, IonSelectOption, IonTextarea
 } from '@ionic/angular/standalone';
 import { HelperService } from '../helper.service';
+import { ApiService } from '../api.service';
 import { Inventory, StockStatus, Category } from '../app.component';
 
 @Component({
@@ -21,99 +23,83 @@ import { Inventory, StockStatus, Category } from '../app.component';
     IonHeader, IonToolbar, IonTitle, IonContent,
     IonButtons, IonButton, IonSearchbar,
     IonList, IonItem, IonLabel, IonIcon,
-    IonText, IonSegment, IonSegmentButton
+    IonText, IonSegment, IonSegmentButton,
+    IonInput, IonSelect, IonSelectOption, IonTextarea
   ],
   providers: [HelperService]
 })
 export class Tab1Page implements OnInit {
   items: Inventory[] = [];
   filteredItems: Inventory[] = [];
-  selectedFilter: 'all' | 'in-stock' | 'low-stock' | 'out-of-stock' = 'all';
+  selectedFilter = 'all';
   public readonly StockStatus = StockStatus;
+  public readonly Category = Category;
+  // 关键：让模板可以访问 Object
+  public readonly Object = Object;
+
+  editingItem: Inventory | null = null;
+  showEditForm = false;
 
   constructor(
-    private helperService: HelperService
+    private helper: HelperService,
+    private api: ApiService
   ) {}
 
   ngOnInit() {
-    this.loadOnlyCustomItems();
-  }
-
-  private loadOnlyCustomItems() {
-    this.items = [
-      { 
-        item_id: 1, 
-        item_name: 'Laptop', 
-        category: Category.Electronics,
-        stock_status: StockStatus.InStock, 
-        quantity: 25, 
-        price: 1299.99,
-        supplier_name: 'Tech Supplier', 
-        featured_item: 1 
-      },
-      { 
-        item_id: 2, 
-        item_name: 'Office Chair', 
-        category: Category.Furniture,
-        stock_status: StockStatus.OutOfStock, 
-        quantity: 0, 
-        price: 199.99,
-        supplier_name: 'Furniture Co', 
-        featured_item: 0 
-      },
-      { 
-        item_id: 3, 
-        item_name: 'Wireless Mouse', 
-        category: Category.Electronics,
-        stock_status: StockStatus.LowStock, 
-        quantity: 3, 
-        price: 29.99,
-        supplier_name: 'Tech Supplier', 
-        featured_item: 1 
-      },
-      { 
-        item_id: 4, 
-        item_name: 'Cotton T-Shirt', 
-        category: Category.Clothing,
-        stock_status: StockStatus.InStock, 
-        quantity: 50, 
-        price: 19.99,
-        supplier_name: 'Apparel Inc', 
-        featured_item: 0 
-      }
-    ];
-    this.filteredItems = [...this.items];
-  }
-
-  showHelp() {
-    this.helperService.showHelp('list');
-  }
-
-  onSearch(event: any) {
-    const term = event.target.value?.toLowerCase() || '';
-    this.applyFilters(term, this.selectedFilter);
-  }
-
-  filterByStatus() {
-    this.applyFilters('', this.selectedFilter);
-  }
-
-  private applyFilters(term: string, statusFilter: string) {
-    this.filteredItems = this.items.filter(item => {
-      const matchesSearch = item.item_name.toLowerCase().includes(term);
-      let matchesStatus = true;
-      switch (statusFilter) {
-        case 'all': matchesStatus = true; break;
-        case 'in-stock': matchesStatus = item.stock_status === StockStatus.InStock; break;
-        case 'low-stock': matchesStatus = item.stock_status === StockStatus.LowStock; break;
-        case 'out-of-stock': matchesStatus = item.stock_status === StockStatus.OutOfStock; break;
-      }
-      return matchesSearch && matchesStatus;
+    this.api.items$.subscribe(items => {
+      this.items = items;
+      this.filterByStatus();
     });
   }
 
+  onSearch(e: any) {
+    const t = e.target.value?.toLowerCase() || '';
+    this.filteredItems = this.items.filter(x =>
+      x.item_name.toLowerCase().includes(t)
+    );
+  }
+
+  filterByStatus() {
+    this.filteredItems = this.items.filter(x => {
+      if (this.selectedFilter === 'all') return true;
+      if (this.selectedFilter === 'in-stock') return x.stock_status === StockStatus.InStock;
+      if (this.selectedFilter === 'low-stock') return x.stock_status === StockStatus.LowStock;
+      if (this.selectedFilter === 'out-of-stock') return x.stock_status === StockStatus.OutOfStock;
+      return true;
+    });
+  }
+
+  deleteItem(item: Inventory) {
+    this.api.deleteItem(item.item_name).subscribe({
+      next: () => this.helper.showToast('Deleted', 'success'),
+      error: () => this.helper.showToast('Delete failed', 'error')
+    });
+  }
+
+  startEdit(item: Inventory) {
+    this.editingItem = { ...item };
+    this.showEditForm = true;
+  }
+
+  saveEdit() {
+    if (!this.editingItem) return;
+    this.api.updateItem(this.editingItem.item_id, this.editingItem).subscribe({
+      next: () => {
+        this.showEditForm = false;
+        this.editingItem = null;
+        this.helper.showToast('Updated', 'success');
+      },
+      error: () => this.helper.showToast('Update failed', 'error')
+    });
+  }
+
+  cancelEdit() {
+    this.showEditForm = false;
+    this.editingItem = null;
+  }
+
   getStatusIcon(s: StockStatus) {
-    switch (s) {
+    switch(s) {
       case StockStatus.InStock: return 'checkmark-circle';
       case StockStatus.LowStock: return 'alert-circle';
       case StockStatus.OutOfStock: return 'close-circle';
@@ -122,7 +108,7 @@ export class Tab1Page implements OnInit {
   }
 
   getStatusColor(s: StockStatus) {
-    switch (s) {
+    switch(s) {
       case StockStatus.InStock: return 'success';
       case StockStatus.LowStock: return 'warning';
       case StockStatus.OutOfStock: return 'danger';
@@ -130,12 +116,11 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  getStockClass(s: StockStatus) {
-    return s.toLowerCase().replace(' ', '-');
+  formatPrice(p: number) {
+    return `$${p.toFixed(2)}`;
   }
 
-  formatPrice(price: number | undefined): string {
-    if (price === undefined || price === null) return '$0.00';
-    return `$${price.toFixed(2)}`;
+  showHelp() {
+    this.helper.showHelp('list');
   }
 }
