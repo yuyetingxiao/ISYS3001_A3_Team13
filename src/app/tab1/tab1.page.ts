@@ -7,7 +7,6 @@ import {
   IonList, IonItem, IonLabel, IonIcon,
   IonText, IonSegment, IonSegmentButton
 } from '@ionic/angular/standalone';
-import { ApiService } from '../api.service';
 import { HelperService } from '../helper.service';
 import { Inventory, StockStatus, Category } from '../app.component';
 
@@ -24,19 +23,15 @@ import { Inventory, StockStatus, Category } from '../app.component';
     IonList, IonItem, IonLabel, IonIcon,
     IonText, IonSegment, IonSegmentButton
   ],
-  providers: [ApiService, HelperService]
+  providers: [HelperService]
 })
 export class Tab1Page implements OnInit {
-  // Product List
   items: Inventory[] = [];
   filteredItems: Inventory[] = [];
   selectedFilter: 'all' | 'in-stock' | 'low-stock' | 'out-of-stock' = 'all';
-
-  // Expose the enumeration to the template
   public readonly StockStatus = StockStatus;
 
   constructor(
-    private apiService: ApiService,
     private helperService: HelperService
   ) {}
 
@@ -44,7 +39,6 @@ export class Tab1Page implements OnInit {
     this.loadOnlyCustomItems();
   }
 
-  // Load the specified 4 products
   private loadOnlyCustomItems() {
     this.items = [
       { 
@@ -91,12 +85,10 @@ export class Tab1Page implements OnInit {
     this.filteredItems = [...this.items];
   }
 
-  // Help popup
   showHelp() {
     this.helperService.showHelp('list');
   }
 
-  // Search filtering
   onSearch(event: any) {
     const term = event.target.value?.toLowerCase() || '';
     this.applyFilters(term, this.selectedFilter);
@@ -110,27 +102,16 @@ export class Tab1Page implements OnInit {
     this.filteredItems = this.items.filter(item => {
       const matchesSearch = item.item_name.toLowerCase().includes(term);
       let matchesStatus = true;
-
       switch (statusFilter) {
-        case 'all':
-          matchesStatus = true;
-          break;
-        case 'in-stock':
-          matchesStatus = item.stock_status === StockStatus.InStock;
-          break;
-        case 'low-stock':
-          matchesStatus = item.stock_status === StockStatus.LowStock;
-          break;
-        case 'out-of-stock':
-          matchesStatus = item.stock_status === StockStatus.OutOfStock;
-          break;
+        case 'all': matchesStatus = true; break;
+        case 'in-stock': matchesStatus = item.stock_status === StockStatus.InStock; break;
+        case 'low-stock': matchesStatus = item.stock_status === StockStatus.LowStock; break;
+        case 'out-of-stock': matchesStatus = item.stock_status === StockStatus.OutOfStock; break;
       }
-
       return matchesSearch && matchesStatus;
     });
   }
 
-  // Icon/Color Method
   getStatusIcon(s: StockStatus) {
     switch (s) {
       case StockStatus.InStock: return 'checkmark-circle';
@@ -153,7 +134,6 @@ export class Tab1Page implements OnInit {
     return s.toLowerCase().replace(' ', '-');
   }
 
-  // Format the price to ensure display
   formatPrice(price: number | undefined): string {
     if (price === undefined || price === null) return '$0.00';
     return `$${price.toFixed(2)}`;

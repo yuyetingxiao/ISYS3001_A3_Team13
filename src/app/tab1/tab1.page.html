@@ -10,7 +10,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <!--Correspondence between the value and logic of filter buttons -->
   <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterByStatus()">
     <ion-segment-button value="all">
       <ion-label>All</ion-label>
@@ -40,7 +39,6 @@
       button
       detail
     >
-      <!-- Popular tags -->
       <div class="popular-badge" *ngIf="item.featured_item === 1">
         <ion-icon name="flame" color="danger" size="small"></ion-icon>
         <span>Popular</span>
