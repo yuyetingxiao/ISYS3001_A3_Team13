@@ -1,0 +1,43 @@
+.privacy-card-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #222;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #4285F4;
+}
+
+.page-subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.privacy-block {
+  background: #f8fafc;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+
+  h3 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+  }
+}
