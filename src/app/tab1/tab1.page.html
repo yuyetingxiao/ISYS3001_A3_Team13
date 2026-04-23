@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Inventory</ion-title>
+    <!-- 【仅新增 右上角Help按钮】 -->
+    <ion-buttons slot="end">
+    <ion-button (click)="showHelp()" color="light">Help</ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="showHelp()">
         <ion-icon name="help-circle-outline"></ion-icon>
@@ -43,12 +47,10 @@
   <div *ngIf="showEditForm && editingItem" class="ion-padding">
     <ion-list>
       <ion-item><ion-label>Edit Item</ion-label></ion-item>
-   
       <ion-item>
         <ion-label position="stacked">Item name</ion-label>
         <ion-input [(ngModel)]="editingItem.item_name" placeholder="Name"></ion-input>
       </ion-item>
-   
       <ion-item>
         <ion-label position="stacked">Category</ion-label>
         <ion-select [(ngModel)]="editingItem.category">

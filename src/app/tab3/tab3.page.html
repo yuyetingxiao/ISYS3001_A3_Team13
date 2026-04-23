@@ -1,6 +1,11 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Privacy & Security</ion-title>
+    <!-- ==== 仅新增Help按钮 ==== -->
+    <ion-buttons slot="end">
+      <ion-button (click)="showPrivacyHelp()" color="light">Help</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

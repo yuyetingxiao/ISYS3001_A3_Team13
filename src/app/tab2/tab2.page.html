@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Add Item</ion-title>
+    <!-- ==== 仅新增Help按钮 ==== -->
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()" color="light">Help</ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="showHelp()">
         <ion-icon name="help-circle-outline"></ion-icon>

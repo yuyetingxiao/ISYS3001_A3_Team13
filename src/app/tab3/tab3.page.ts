@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-// 只保留HTML里真正用到的组件
 import {
+  IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
-// 正确官方图名称，修正拼写错误
 import {
   alertCircle,
   eyeOff,
@@ -29,7 +29,9 @@ import { addIcons } from 'ionicons';
     IonHeader,
     IonToolbar,
     IonTitle,
-    IonContent
+    IonContent,
+    IonButtons,
+    IonButton
   ]
 })
 export class Tab3Page implements OnInit {
@@ -50,4 +52,7 @@ export class Tab3Page implements OnInit {
   showPrivacyTip() {
     this.helperService.showToast('Your data is fully local and private.', 'success');
   }
+showPrivacyHelp() {
+  this.helperService.showHelp('privacy');
+}
 }
