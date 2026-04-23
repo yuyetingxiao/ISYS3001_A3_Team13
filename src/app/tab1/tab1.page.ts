@@ -1,16 +1,31 @@
+import { Category, Inventory, StockStatus } from '../app.component';
 import { Component, OnInit } from '@angular/core';
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
+  IonSelect,
+  IonSelectOption,
+  IonText,
+  IonTextarea,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
+
+import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonHeader, IonToolbar, IonTitle, IonContent,
-  IonButtons, IonButton, IonSearchbar,
-  IonList, IonItem, IonLabel, IonIcon,
-  IonText, IonSegment, IonSegmentButton,
-  IonInput, IonSelect, IonSelectOption, IonTextarea
-} from '@ionic/angular/standalone';
 import { HelperService } from '../helper.service';
-import { ApiService } from '../api.service';
-import { Inventory, StockStatus, Category } from '../app.component';
+import { IonBadge } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tab1',
@@ -24,7 +39,7 @@ import { Inventory, StockStatus, Category } from '../app.component';
     IonButtons, IonButton, IonSearchbar,
     IonList, IonItem, IonLabel, IonIcon,
     IonText, IonSegment, IonSegmentButton,
-    IonInput, IonSelect, IonSelectOption, IonTextarea
+    IonInput, IonSelect, IonSelectOption, IonTextarea,IonBadge
   ],
   providers: [HelperService]
 })
@@ -39,6 +54,7 @@ export class Tab1Page implements OnInit {
 
   editingItem: Inventory | null = null;
   showEditForm = false;
+  // 编辑表单控制变量
 
   constructor(
     private helper: HelperService,

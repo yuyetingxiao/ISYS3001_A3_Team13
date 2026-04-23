@@ -14,32 +14,45 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-searchbar (ionInput)="onSearch($event)"></ion-searchbar>
+
+  <!-- 顶部搜索、筛选、Help按钮 全部原样保留 -->
+  <ion-searchbar (ionInput)="onSearch($event)" placeholder="Search items"></ion-searchbar>
 
   <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterByStatus()">
     <ion-segment-button value="all">All</ion-segment-button>
     <ion-segment-button value="in-stock">In Stock</ion-segment-button>
-    <ion-segment-button value="low-stock">Low</ion-segment-button>
-    <ion-segment-button value="out-of-stock">Out</ion-segment-button>
+    <ion-segment-button value="low-stock">Low Stock</ion-segment-button>
+    <ion-segment-button value="out-of-stock">Out of Stock</ion-segment-button>
   </ion-segment>
 
+  <!-- 商品列表：完整信息 + 恢复编辑/删除按钮 -->
   <ion-list>
     <ion-item *ngFor="let item of filteredItems">
-      <ion-icon [name]="getStatusIcon(item.stock_status)" [color]="getStatusColor(item.stock_status)" slot="start"></ion-icon>
       <ion-label>
-        {{ item.item_name }}<br>
-        {{ item.category }} | Price: {{ formatPrice(item.price) }} | Qty: {{ item.quantity }}
+        <h2>
+          {{ item.item_name }}
+          <span *ngIf="item.featured_item === 1"
+            style="background:#3880ff;color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;margin-left:8px;">
+            Featured
+          </span>
+        </h2>
+        <p>Category: {{ item.category }} | Supplier: {{ item.supplier_name }}</p>
+        <p>Qty: {{ item.quantity }} | Price: {{ formatPrice(item.price) }}</p>
       </ion-label>
 
-      <ion-button color="primary" (click)="startEdit(item)" slot="end">
-        <ion-icon name="pencil-outline"></ion-icon>
-        Edit
-      </ion-button>
+      <!-- 原有状态图标 原样保留 -->
+      <ion-icon
+        [name]="getStatusIcon(item.stock_status)"
+        [color]="getStatusColor(item.stock_status)"
+        slot="end">
+      </ion-icon>
 
-      <ion-button color="danger" (click)="deleteItem(item)" slot="end">
-        <ion-icon name="trash-outline"></ion-icon>
-        Delete
-      </ion-button>
+      <!-- ✅ 100% 恢复你原来的 编辑 + 删除 按钮 -->
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="startEdit(item)">Edit</ion-button>
+        <ion-button color="danger" (click)="deleteItem(item)">Delete</ion-button>
+      </ion-buttons>
+
     </ion-item>
   </ion-list>
 
