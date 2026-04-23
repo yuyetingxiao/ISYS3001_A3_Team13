@@ -1,9 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Inventory</ion-title>
-    <!-- 【仅新增 右上角Help按钮】 -->
     <ion-buttons slot="end">
-    <ion-button (click)="showHelp()" color="light">Help</ion-button>
+      <ion-button (click)="showHelp()" color="light">Help</ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="showHelp()">
@@ -15,7 +14,6 @@
 
 <ion-content class="ion-padding">
 
-  <!-- 顶部搜索、筛选、Help按钮 全部原样保留 -->
   <ion-searchbar (ionInput)="onSearch($event)" placeholder="Search items"></ion-searchbar>
 
   <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterByStatus()">
@@ -23,9 +21,9 @@
     <ion-segment-button value="in-stock">In Stock</ion-segment-button>
     <ion-segment-button value="low-stock">Low Stock</ion-segment-button>
     <ion-segment-button value="out-of-stock">Out of Stock</ion-segment-button>
+    <ion-segment-button value="featured">Featured</ion-segment-button>
   </ion-segment>
 
-  <!-- 商品列表：完整信息 + 恢复编辑/删除按钮 -->
   <ion-list>
     <ion-item *ngFor="let item of filteredItems">
       <ion-label>
@@ -40,23 +38,20 @@
         <p>Qty: {{ item.quantity }} | Price: {{ formatPrice(item.price) }}</p>
       </ion-label>
 
-      <!-- 原有状态图标 原样保留 -->
       <ion-icon
         [name]="getStatusIcon(item.stock_status)"
         [color]="getStatusColor(item.stock_status)"
         slot="end">
       </ion-icon>
 
-      <!-- ✅ 100% 恢复你原来的 编辑 + 删除 按钮 -->
       <ion-buttons slot="end">
         <ion-button color="primary" (click)="startEdit(item)">Edit</ion-button>
         <ion-button color="danger" (click)="deleteItem(item)">Delete</ion-button>
       </ion-buttons>
-
     </ion-item>
   </ion-list>
 
-
+  <!-- 编辑表单完全不变 -->
   <div *ngIf="showEditForm && editingItem" class="ion-padding">
     <ion-list>
       <ion-item><ion-label>Edit Item</ion-label></ion-item>

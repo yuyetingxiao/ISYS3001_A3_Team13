@@ -20,7 +20,6 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
-
 import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -39,7 +38,7 @@ import { IonBadge } from '@ionic/angular/standalone';
     IonButtons, IonButton, IonSearchbar,
     IonList, IonItem, IonLabel, IonIcon,
     IonText, IonSegment, IonSegmentButton,
-    IonInput, IonSelect, IonSelectOption, IonTextarea,IonBadge
+    IonInput, IonSelect, IonSelectOption, IonTextarea, IonBadge
   ],
   providers: [HelperService]
 })
@@ -49,12 +48,12 @@ export class Tab1Page implements OnInit {
   selectedFilter = 'all';
   public readonly StockStatus = StockStatus;
   public readonly Category = Category;
-  // 关键：让模板可以访问 Object
   public readonly Object = Object;
-
   editingItem: Inventory | null = null;
   showEditForm = false;
-  // 编辑表单控制变量
+
+  // ====================== 【只加这一行，解决报错】 ======================
+  featuredItems: Inventory[] = [];
 
   constructor(
     private helper: HelperService,
@@ -65,6 +64,9 @@ export class Tab1Page implements OnInit {
     this.api.items$.subscribe(items => {
       this.items = items;
       this.filterByStatus();
+
+      // ====================== 【只加这一行，自动刷新】 ======================
+      this.featuredItems = items.filter(i => i.featured_item === 1);
     });
   }
 
@@ -76,14 +78,20 @@ export class Tab1Page implements OnInit {
   }
 
   filterByStatus() {
-    this.filteredItems = this.items.filter(x => {
-      if (this.selectedFilter === 'all') return true;
-      if (this.selectedFilter === 'in-stock') return x.stock_status === StockStatus.InStock;
-      if (this.selectedFilter === 'low-stock') return x.stock_status === StockStatus.LowStock;
-      if (this.selectedFilter === 'out-of-stock') return x.stock_status === StockStatus.OutOfStock;
-      return true;
-    });
+  if (this.selectedFilter === 'all') {
+    this.filteredItems = [...this.items];
+  } else if (this.selectedFilter === 'in-stock') {
+    this.filteredItems = this.items.filter(i => i.stock_status === StockStatus.InStock);
+  } else if (this.selectedFilter === 'low-stock') {
+    this.filteredItems = this.items.filter(i => i.stock_status === StockStatus.LowStock);
+  } else if (this.selectedFilter === 'out-of-stock') {
+    this.filteredItems = this.items.filter(i => i.stock_status === StockStatus.OutOfStock);
+  } 
+  // ✅ 新增：处理Featured标签的过滤
+  else if (this.selectedFilter === 'featured') {
+    this.filteredItems = this.items.filter(i => i.featured_item === 1);
   }
+}
 
   deleteItem(item: Inventory) {
     this.api.deleteItem(item.item_name).subscribe({
