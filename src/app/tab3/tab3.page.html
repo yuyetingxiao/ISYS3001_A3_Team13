@@ -1,41 +1,57 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Privacy & Security</ion-title>
-    <!-- ==== 仅新增Help按钮 ==== -->
+    <!-- 统一Help按钮样式 -->
     <ion-buttons slot="end">
-      <ion-button (click)="showPrivacyHelp()" color="light">Help</ion-button>
+      <ion-button (click)="showPrivacyHelp()" class="help-btn">HELP</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-
-  <div class="privacy-card-wrapper">
+<ion-content class="operation-page ion-padding">
+  <!-- 统一卡片容器，和tab2保持一致 -->
+  <div class="main-card">
     <h2 class="page-title">Privacy & Security</h2>
-    <p class="page-subtitle">Your data is safe and secure with our system.</p>
+    <p class="page-desc">Your data is safe and secure with our system.</p>
 
-    <!-- 四个隐私模块区块 -->
-    <div class="privacy-block">
-      <h3>Data Storage</h3>
-      <p>All inventory data is stored locally on your device. No information is sent to external servers.</p>
+    <!-- 四个隐私模块区块 - 适配tab2风格 -->
+    <div class="privacy-grid">
+      <div class="privacy-block">
+        <div class="privacy-icon-wrapper">
+          <ion-icon name="lock-closed" color="primary"></ion-icon>
+        </div>
+        <h3 class="privacy-title">Data Storage</h3>
+        <p class="privacy-desc">All inventory data is stored locally on your device. No information is sent to external servers.</p>
+      </div>
+
+      <div class="privacy-block">
+        <div class="privacy-icon-wrapper">
+          <ion-icon name="shield" color="success"></ion-icon>
+        </div>
+        <h3 class="privacy-title">No Personal Data</h3>
+        <p class="privacy-desc">We do not collect, store, or share any personal information, location data, or user identifiers.</p>
+      </div>
+
+      <div class="privacy-block">
+        <div class="privacy-icon-wrapper">
+          <ion-icon name="alert-circle" color="warning"></ion-icon>
+        </div>
+        <h3 class="privacy-title">Unique ID Validation</h3>
+        <p class="privacy-desc">Item IDs are strictly unique to ensure data integrity and avoid conflicts.</p>
+      </div>
+
+      <div class="privacy-block">
+        <div class="privacy-icon-wrapper">
+          <ion-icon name="information-circle" color="danger"></ion-icon>
+        </div>
+        <h3 class="privacy-title">Secure Practices</h3>
+        <p class="privacy-desc">Built with Angular best practices to ensure a safe and reliable experience.</p>
+      </div>
     </div>
 
-    <div class="privacy-block">
-      <h3>No Personal Data</h3>
-      <p>We do not collect, store, or share any personal information, location data, or user identifiers.</p>
+    <!-- 新增操作按钮（保持功能空，仅视觉统一） -->
+    <div class="button-row" style="margin-top: 24px;">
+      <ion-button color="primary" (click)="showPrivacyTip()">CHECK PRIVACY STATUS</ion-button>
     </div>
-
-    <div class="privacy-block">
-      <h3>Unique ID Validation</h3>
-      <p>Item IDs are strictly unique to ensure data integrity and avoid conflicts.</p>
-    </div>
-
-    <div class="privacy-block">
-      <h3>Secure Practices</h3>
-      <p>Built with Angular best practices to ensure a safe and reliable experience.</p>
-    </div>
-
   </div>
-
 </ion-content>

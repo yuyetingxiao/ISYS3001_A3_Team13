@@ -4,6 +4,7 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
@@ -31,7 +32,8 @@ import { addIcons } from 'ionicons';
     IonTitle,
     IonContent,
     IonButtons,
-    IonButton
+    IonButton,
+    IonIcon
   ]
 })
 export class Tab3Page implements OnInit {

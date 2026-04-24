@@ -1,0 +1,131 @@
+/* 全局页面基础 */
+.operation-page {
+  --background: #f0f4f9;
+  padding: 16px 12px 40px !important;
+}
+
+/* 主卡片容器 */
+.main-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  padding: 36px 32px !important;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 10px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.page-desc {
+  color: #64748b;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+/* 4列表单布局 */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.form-field {
+  --background: #f8fafc;
+  --border-radius: 10px;
+  --inner-border-width: 0;
+  padding: 12px;
+  margin: 0;
+}
+
+/* ========== Comment 终极防遮挡修复 ========== */
+.comment-wrapper {
+  width: 100%;
+  margin-bottom: 36px;
+  padding: 0;
+}
+
+.comment-label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.full-comment-box {
+  width: 100%;
+  min-height: 130px !important;
+  --background: #f8fafc;
+  --border-radius: 10px;
+  padding: 14px !important;
+  font-size: 15px;
+  resize: none;
+}
+
+/* ========== 高亮显眼HELP按钮 ========== */
+.help-btn {
+  --background: #ffffff !important;
+  --color: #0047ab !important;
+  font-weight: 900 !important;
+  font-size: 16px !important;
+  --border-radius: 8px;
+  padding: 6px 16px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.help-btn:hover {
+  --background: #e6f0ff !important;
+}
+
+/* 按钮行 */
+.button-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-purple {
+  --background: #8b5cf6;
+  --color: #ffffff;
+}
+
+ion-button {
+  --border-radius: 10px;
+  font-weight: 600;
+}
+
+/* ========== 移动端完美适配 ========== */
+@media (max-width: 992px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .operation-page {
+    padding: 12px 12px 60px !important;
+  }
+  .main-card {
+    padding: 24px 18px !important;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .button-row {
+    flex-direction: column;
+  }
+  ion-button {
+    width: 100%;
+  }
+}
+ion-content {
+  --padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}

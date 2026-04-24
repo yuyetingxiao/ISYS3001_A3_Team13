@@ -1,28 +1,160 @@
-ion-list {
-  --background: transparent;
+.operation-page {
+  --background: #f5f7fa;
+  padding: 16px;
 }
 
-ion-item {
-  --padding-end: 80px; // Leave space for the button
+.main-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
-ion-button[slot="end"] {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  min-width: 60px;
-  
-  ion-icon {
-    margin-right: 4px;
+.page-title {
+  color: #1a202c;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.page-desc {
+  color: #718096;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+}
+
+.search-wrapper {
+  margin-bottom: 16px;
+
+  ion-searchbar {
+    --background: #f7fafc;
+    --border-radius: 12px;
+    --placeholder-color: #a0aec0;
+    --text-color: #2d3748;
+    --icon-color: #4a5568;
   }
 }
 
-// Make the button more attractive
-ion-button.color-primary {
-  --background: #007bff;
-  --border-color: #007bff;
+.filter-segment {
+  margin-bottom: 24px;
+
+  ion-segment {
+    --background: #f7fafc;
+    --border-radius: 12px;
+
+    ion-segment-button {
+      --color: #4a5568;
+      --color-checked: #ffffff;
+      --background-checked: #3880ff;
+      --border-radius: 8px;
+      margin: 4px;
+    }
+  }
 }
 
-ion-button.color-danger {
-  --background: #dc3545;
-  --border-color: #dc3545;
+.inventory-list {
+  --ion-item-background: transparent;
+  --ion-item-border-color: transparent;
+  gap: 12px;
+}
+
+.inventory-item {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+
+  .featured-badge {
+    background: #3880ff;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 8px;
+  }
+
+  .status-icon {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+
+  .item-actions {
+    display: flex;
+    gap: 8px;
+
+    .edit-btn, .delete-btn {
+      --border-radius: 8px;
+      --padding-start: 12px;
+      --padding-end: 12px;
+    }
+  }
+}
+
+.edit-form-wrapper {
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin-top: 24px;
+
+  .form-title-item {
+    --ion-item-background: transparent;
+    --ion-item-border-color: transparent;
+
+    .form-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a202c;
+    }
+  }
+
+  .edit-form {
+    --ion-item-background: transparent;
+    --ion-item-border-color: transparent;
+    gap: 8px;
+
+    .form-field {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 8px 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .full-comment-box {
+      min-height: 120px;
+      border-radius: 8px;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+  }
+
+  .button-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+
+    ion-button {
+      --border-radius: 8px;
+      font-weight: 500;
+    }
+  }
+}
+
+// 统一Help按钮样式
+.help-btn {
+  --background: #ffffff !important;
+  --color: #0047ab !important;
+  font-weight: 900 !important;
+  font-size: 16px !important;
+  --border-radius: 8px;
+  padding: 6px 16px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.help-btn:hover {
+  --background: #e6f0ff !important;
+}
+ion-content {
+  --padding-bottom: calc(24px + env(safe-area-inset-bottom));
 }
