@@ -1,147 +1,136 @@
-.operation-page {
+/* 页面基础样式 */
+ion-content {
   --background: #f5f7fa;
-  padding: 16px;
+  --padding-top: 16px;
+  --padding-bottom: calc(20px + env(safe-area-inset-bottom));
 }
 
-.main-card {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 24px;
-  margin: 0 auto;
-  max-width: 100%;
+/* 搜索栏 */
+ion-searchbar {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
 }
 
-.page-title {
-  color: #1a202c;
-  font-size: 22px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-}
-
-.page-desc {
-  color: #718096;
-  font-size: 14px;
-  margin: 0 0 20px 0;
-}
-
-.search-wrapper {
+/* ======================
+1. 筛选栏 字体重叠挤压 终极修复
+====================== */
+ion-segment {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: 16px;
-
-  ion-searchbar {
-    --background: #f7fafc;
-    --border-radius: 12px;
-    --placeholder-color: #a0aec0;
-    --text-color: #2d3748;
-    --icon-color: #4a5568;
-  }
+  padding: 6px 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
 }
 
-.filter-segment {
-  margin-bottom: 24px;
-
-  ion-segment {
-    --background: #f7fafc;
-    --border-radius: 12px;
-
-    ion-segment-button {
-      --color: #4a5568;
-      --color-checked: #ffffff;
-      --background-checked: #3880ff;
-      --border-radius: 8px;
-      margin: 4px;
-    }
-  }
+ion-segment::-webkit-scrollbar {
+  display: none;
 }
 
-.inventory-list {
-  --ion-item-background: transparent;
-  --ion-item-border-color: transparent;
-  gap: 12px;
+ion-segment-button {
+  --border-radius: 10px;
+  --indicator-height: 0;
+  /* 核心防挤压：禁止收缩，固定足够最小宽度 */
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  min-width: 90px;
+  padding: 6px 14px !important;
+  font-size: 14px;
+  white-space: nowrap !important;
 }
 
-.inventory-item {
-  background: #f7fafc;
+/* ======================
+2. 商品列表卡片 字体重叠错乱 修复
+====================== */
+ion-list {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+ion-item {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 12px;
+  padding: 16px !important;
+  border: none;
+  --inner-border-width: 0;
+  align-items: flex-start;
+}
+
+ion-label {
+  display: block !important;
+  width: calc(100% - 140px); /* 给右侧按钮预留专属空间，绝不挤占文字 */
+}
+
+/* 商品标题+徽章 */
+ion-label h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 8px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.4;
+  white-space: normal;
+  flex-wrap: wrap;
+}
+
+/* 商品详情文本（分类/供应商/数量价格） */
+ion-label p {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0 !important;
+  line-height: 1.55 !important;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* 特色徽章 固定尺寸 绝不挤压文字 */
+ion-badge,
+.featured-badge {
+  flex-shrink: 0;
+  --background: #3880ff;
+  --color: #ffffff;
+  --border-radius: 12px;
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+/* 右侧编辑/删除按钮 固定靠右 */
+ion-buttons[slot="end"] {
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+ion-button {
+  --border-radius: 8px;
+  font-size: 13px;
+  --padding-top: 7px;
+  --padding-bottom: 7px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+/* 编辑表单 */
+div[ngIf="showEditForm"] {
+  background: #ffffff;
   border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   padding: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-
-  .featured-badge {
-    background: #3880ff;
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    margin-left: 8px;
-  }
-
-  .status-icon {
-    font-size: 24px;
-    margin-right: 8px;
-  }
-
-  .item-actions {
-    display: flex;
-    gap: 8px;
-
-    .edit-btn, .delete-btn {
-      --border-radius: 8px;
-      --padding-start: 12px;
-      --padding-end: 12px;
-    }
-  }
+  margin-top: 16px;
 }
 
-.edit-form-wrapper {
-  background: #f8f9fa;
-  border-radius: 12px;
-  margin-top: 24px;
-
-  .form-title-item {
-    --ion-item-background: transparent;
-    --ion-item-border-color: transparent;
-
-    .form-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #1a202c;
-    }
-  }
-
-  .edit-form {
-    --ion-item-background: transparent;
-    --ion-item-border-color: transparent;
-    gap: 8px;
-
-    .form-field {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 8px 12px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .full-comment-box {
-      min-height: 120px;
-      border-radius: 8px;
-      padding: 12px;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-    }
-  }
-
-  .button-row {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-
-    ion-button {
-      --border-radius: 8px;
-      font-weight: 500;
-    }
-  }
-}
-
-// 统一Help按钮样式
+/* HELP按钮 */
 .help-btn {
   --background: #ffffff !important;
   --color: #0047ab !important;
@@ -155,6 +144,11 @@
 .help-btn:hover {
   --background: #e6f0ff !important;
 }
-ion-content {
-  --padding-bottom: calc(24px + env(safe-area-inset-bottom));
-}
+.featured-badge {
+    background: #3880ff;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 8px;
+  }
