@@ -4,9 +4,11 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
+// Import required Ionic icons
 import {
   alertCircle,
   eyeOff,
@@ -19,6 +21,10 @@ import { CommonModule } from '@angular/common';
 import { HelperService } from '../helper.service';
 import { addIcons } from 'ionicons';
 
+/**
+ * Privacy and Security Component
+ * Handles privacy-related UI and user interactions
+ */
 @Component({
   selector: 'app-tab3',
   templateUrl: './tab3.page.html',
@@ -31,13 +37,18 @@ import { addIcons } from 'ionicons';
     IonTitle,
     IonContent,
     IonButtons,
-    IonButton
+    IonButton,
+    IonIcon
   ]
 })
 export class Tab3Page implements OnInit {
 
+  /**
+   * Constructor for Tab3Page
+   * @param helperService - Service for shared UI helper functions
+   */
   constructor(private helperService: HelperService) {
-    // 注册正确图标
+    // Register Ionic icons for use in template
     addIcons({
       lockClosed,
       shield,
@@ -47,12 +58,25 @@ export class Tab3Page implements OnInit {
     });
   }
 
+  /**
+   * OnInit lifecycle hook
+   * Executes when component is initialized
+   */
   ngOnInit(): void {}
 
+  /**
+   * Show privacy information toast
+   * Displays a success toast with data privacy message
+   */
   showPrivacyTip() {
     this.helperService.showToast('Your data is fully local and private.', 'success');
   }
-showPrivacyHelp() {
-  this.helperService.showHelp('privacy');
-}
+
+  /**
+   * Show privacy help dialog
+   * Triggers helper service to display privacy-related help content
+   */
+  showPrivacyHelp() {
+    this.helperService.showHelp('privacy');
+  }
 }

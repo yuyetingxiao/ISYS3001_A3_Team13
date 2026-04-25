@@ -35,3 +35,11 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+/* 全局强制开启Ionic安全区域适配 */
+html {
+  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+}
+
+* {
+  box-sizing: border-box;
+}

@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eef2f8;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --primary-blue: #2196f3;
+  --success-green: #28a745;
+  --info-blue: #4285f4;
+  --save-purple: #8048d9;
+  --danger-red: #dc3545;
+  --card-bg: #ffffff;
+  --text-dark: #1a202c;
+  --text-muted: #64748b;
+  --border-gray: #e2e8f0;
+}
+/* Global mobile terminal security avoidance, core configuration */
+:root {
+  /* Automatic recognition of phone notch，status bar and bottom black bar */
+  --ion-safe-area-top: env(safe-area-inset-top);
+  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+}
+
+/* All page content automatically reserves */
+ion-content {
+  --padding-top: calc(16px + var(--ion-safe-area-top));
+  --padding-bottom: calc(20px + var(--ion-safe-area-bottom));
+  overflow-y: auto;
+}
+ion-content {
+  --padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}

@@ -1,4 +1,5 @@
 import { AlertController, ToastController } from '@ionic/angular';
+
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -45,8 +46,8 @@ export class HelperService {
    */
   private getPageHelp(page: 'list' | 'add' | 'edit' | 'privacy'): string {
     const helpMap: Record<'list' | 'add' | 'edit' | 'privacy', string> = {
-      list: 'View all inventory items. You can search by item name and filter by stock status.',
-      add: 'Add new inventory item. Featured items are marked with 1 (0 = not featured). All fields are required except special note.',
+      list: 'Inventory List Help:• View all inventory items with details• Use the search bar to find items by name• Click on an item to edit or delete it',
+      add: 'Inventory Operation Help:• Fill in all required fields marked with (*)• Popular Item: After selecting YES, you can find the product in the featured product section.• Comment is the only optional field• Click Add Item to save new inventory',
       edit: 'Update or delete existing items. Note: Laptop item cannot be deleted due to system restrictions.',
       privacy: 'This app complies with privacy regulations: all inventory data is encrypted in transit, and only authorized users can access it.'
     };

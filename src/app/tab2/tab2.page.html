@@ -1,70 +1,93 @@
+<!-- Top navigation, prominent HELP button -->
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Add Item</ion-title>
-    <!-- ==== 仅新增Help按钮 ==== -->
+    <ion-title>Inventory Operation</ion-title>
+    <!-- Add a dedicated highlight class to the Help button -->
     <ion-buttons slot="end">
-      <ion-button (click)="showHelp()" color="light">Help</ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button (click)="showHelp()">
-        <ion-icon name="help-circle-outline"></ion-icon>
-      </ion-button>
+      <ion-button class="help-btn" (click)="showHelp()">HELP</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="onSubmit()">
-    <ion-list>
-      <ion-item>
-        <ion-label>Item Name *</ion-label>
-        <ion-input [(ngModel)]="newItem.item_name" name="item_name" required></ion-input>
+<ion-content class="operation-page">
+  <div class="main-card">
+    <h2 class="page-title">Inventory Operation</h2>
+    <p class="page-desc">Manage all inventory items here. All fields are required except Comment.</p>
+
+    <!--List Single Grid-->
+    <div class="form-grid">
+      <ion-item class="form-field">
+        <ion-label position="stacked">Item ID (*)</ion-label>
+        <ion-input [(ngModel)]="newItem.item_id"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Category</ion-label>
-        <ion-select [(ngModel)]="newItem.category" name="category">
-          <ion-select-option *ngFor="let c of categories" [value]="c">{{ c }}</ion-select-option>
+      <ion-item class="form-field">
+        <ion-label position="stacked">Item Name (*)</ion-label>
+        <ion-input [(ngModel)]="newItem.item_name"></ion-input>
+      </ion-item>
+
+      <!-- Complete category dropdown -->
+      <ion-item class="form-field">
+        <ion-label position="stacked">Category (*)</ion-label>
+        <ion-select [(ngModel)]="newItem.category">
+          <ion-select-option value="Electronics">Electronics</ion-select-option>
+          <ion-select-option value="Furniture">Furniture</ion-select-option>
+          <ion-select-option value="Clothing">Clothing</ion-select-option>
+          <ion-select-option value="Tools">Tools</ion-select-option>
+          <ion-select-option value="Miscellaneous">Miscellaneous</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Quantity</ion-label>
-        <ion-input type="number" [(ngModel)]="newItem.quantity" name="quantity"></ion-input>
+      <ion-item class="form-field">
+        <ion-label position="stacked">Quantity (*)</ion-label>
+        <ion-input type="number" [(ngModel)]="newItem.quantity"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Price</ion-label>
-        <ion-input type="number" step="0.01" [(ngModel)]="newItem.price" name="price"></ion-input>
+      <ion-item class="form-field">
+        <ion-label position="stacked">Price (*)</ion-label>
+        <ion-input type="number" [(ngModel)]="newItem.price"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Supplier *</ion-label>
-        <ion-input [(ngModel)]="newItem.supplier_name" name="supplier_name" required></ion-input>
+      <ion-item class="form-field">
+        <ion-label position="stacked">Supplier Name (*)</ion-label>
+        <ion-input [(ngModel)]="newItem.supplier_name"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Stock Status</ion-label>
-        <ion-select [(ngModel)]="newItem.stock_status" name="stock_status">
-          <ion-select-option *ngFor="let s of stockStatuses" [value]="s">{{ s }}</ion-select-option>
+      <!-- Complete Inventory Status Dropdown -->
+      <ion-item class="form-field">
+        <ion-label position="stacked">Stock Status (*)</ion-label>
+        <ion-select [(ngModel)]="newItem.stock_status">
+          <ion-select-option value="In Stock">In Stock</ion-select-option>
+          <ion-select-option value="Low Stock">Low Stock</ion-select-option>
+          <ion-select-option value="Out of Stock">Out of Stock</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Featured</ion-label>
-        <ion-select [(ngModel)]="newItem.featured_item" name="featured_item">
-          <ion-select-option [value]="1">Yes</ion-select-option>
-          <ion-select-option [value]="0">No</ion-select-option>
+      <!-- Complete popular options dropdown -->
+      <ion-item class="form-field">
+        <ion-label position="stacked">Popular Item (*)</ion-label>
+        <ion-select [(ngModel)]="newItem.featured_item">
+          <ion-select-option value="1">Yes</ion-select-option>
+          <ion-select-option value="0">No</ion-select-option>
         </ion-select>
       </ion-item>
+    </div>
 
-      <ion-item>
-        <ion-label>Note</ion-label>
-        <ion-textarea [(ngModel)]="newItem.special_note" name="special_note"></ion-textarea>
-      </ion-item>
-    </ion-list>
+    <!-- Independent extra-large container, not obscured -->
+    <div class="comment-wrapper">
+      <ion-label class="comment-label">Comment (Optional)</ion-label>
+      <ion-textarea>
+        class="full-comment-box"
+        rows="6"
+        placeholder="Additional notes..."
+        [(ngModel)]="newItem.special_note">
+      </ion-textarea>
+    </div>
 
-    <ion-button expand="block" type="submit" color="success">Save</ion-button>
-    <ion-button expand="block" color="medium" (click)="resetForm()">Reset</ion-button>
-  </form>
+    <!-- Colorful function buttons -->
+    <div class="button-row">
+      <ion-button color="success" (click)="onSubmit()">ADD ITEM</ion-button>
+    </div>
+
+  </div>
 </ion-content>

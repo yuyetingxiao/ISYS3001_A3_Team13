@@ -1,37 +1,41 @@
-ion-tabs {
-  // 给内容留出底部空间，防止被标签栏遮挡
-  ion-content {
-    --padding-bottom: 70px;
-  }
+ion-tab-bar {
+  --background: #ffffff;
+  --border-top: 1px solid #e2e8f0;
+  --color: #64748b;
+  --color-selected: #0052cc;
 
-  ion-tab-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 65px;
-    background: #ffffff;
-    border-top: 1px solid #e5e5e5;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  /* Reserve a bottom safe area to prevent text from being obscured */
+  padding-top: 8px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
 
-    ion-tab-button {
-      --color: #666;
-      --color-selected: #3880ff;
-      padding: 6px 4px; // 减少左右内边距，给文字腾出更多空间
-      flex-direction: column;
-    }
+  /* Rounded corners + floating shadow*/
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+}
 
-    ion-label {
-      font-size: 18px; // 微调字号，避免过大
-      font-weight: 500;
-      margin-top: 3px;
-      text-align: center;
-      white-space: nowrap; // 强制不换行
-      overflow: visible;   // 强制完整显示
-    }
+ion-tab-button {
+  /* Increase the vertical inner padding to fully expand and prevent text from being compressed */
+  --padding-top: 12px;
+  --padding-bottom: 16px;
+  --transition: 0.2s all ease;
+  min-height: 60px;
+}
 
-    ion-icon {
-      font-size: 20px;
-    }
-  }
+/* Optimization of selected state highlighting */
+ion-tab-button.tab-selected {
+  --color: #0052cc;
+  transform: translateY(-2px);
+}
+
+ion-tab-button ion-icon {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+/* Ensure the font is fully centered and not cropped */
+ion-tab-button ion-label {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: visible;
 }
